@@ -1,3 +1,7 @@
+'''
+โค้ดส่วนนี้จะเรียกใช้ไฟล์โมเดลที่เป็น .tflite และไฟล .npz ที่เก็บข้อมูล Min-Max เพื่อทดสอบโมเดล
+'''
+
 import numpy as np
 from python_speech_features import mfcc
 import speech_recognition as sr
