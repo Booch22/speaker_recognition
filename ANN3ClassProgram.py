@@ -1,3 +1,13 @@
+'''
+โปรแกรมนี้เป็นโปรแกรมสำหรับเทรนด์โมเดลกับข้อมูลเสียงที่ได้ทำการบันทึกจากผู้พูดทั้ง 2 คน
+1. ตั้งชื่อไฟล์แล้วกดปุ่ม Start
+2. ผู้พูดคนที่ 1 จะพูดเปิดประตู 10 ครั้ง และปิดประตู 10 ครั้ง
+3. ผู้พูดคนที่ 2 จะพูดเปิดประตู 10 ครั้ง และปิดประตู 10 ครั้ง
+4. หลังจากนั้นระบบจะบันทึกเสียงสภาพแวดล้อมพื้นหลังอีก 5 ครั้ง
+5. ระบบจะนำข้อมูลเสียงที่ได้ทำการบันทึกมาเทรนด์กับโมเดล ANN
+6. เมื่อเทรนด์เสร็จโมเดลจะถูกบันทึกเป็นไฟล์ .tflite รวมกับไฟล์ .npz ที่เก็บค่า Min-Max ของชุดข้อมูลเทรนด์(ข้อมูล Min-Max จะถูกนำมาใช้เพื่อทำการทดสอบโมเดล)
+'''
+
 import time # หน่วงเวลา
 import numpy as np # ใช้จัดการข้อมูล เช่น array เป็นต้น
 import tkinter as tk # สร้างหน้าต่างโปรแกรมจากโค้ด
@@ -108,8 +118,7 @@ def normalization( mfcc_feature ) :
 # pre-procesing data for model
 def processing_data( x_data, y_data ) :
     num_classes = 3
-    #reduced_noise = ReNoise( x_data ) # renoise from audio data
-    reduced_noise = x_data
+    reduced_noise = ReNoise( x_data ) # renoise from audio data
     mfcc_data = audio_to_mfcc( reduced_noise ) # use mfcc function
     normaliz_data, min_max_value = normalization( mfcc_data ) # normalization data 0-1
     X_data = np.expand_dims( normaliz_data, -1 ) # reshape (sample, 3887, 1)
